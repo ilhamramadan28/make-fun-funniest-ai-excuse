@@ -8,13 +8,16 @@ import os
 
 ENTRY = "I did the task perfectly in my head, then discovered my head has no write access to your files."
 
+if not 1 <= len(ENTRY) <= 200:
+    raise SystemExit("entry must be 1-200 characters")
+
 
 def main():
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "entry.txt")
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
-        f.write(ENTRY + "\n")
+        f.write(ENTRY.strip() + "\n")
     os.chmod(out_path, 0o644)
 
 
